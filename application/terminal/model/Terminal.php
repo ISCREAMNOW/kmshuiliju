@@ -25,4 +25,12 @@ class Terminal extends Base
         $terDatas=$ter->with('terData')->select();
         return $terDatas;
     }
+    //根据时间区间查询数据库中的数据集
+    public function getTerDataBytime($statime,$endtime,$type){
+        $ter=new Terminal();
+        $terDatas=$ter->where('type','=',$type)->with(['terData'=>function($query) use($statime,$endtime){
+            $query->where('add_time','between',[$statime,$endtime]);
+        }])->paginate();
+        return $terDatas;
+    }
 }

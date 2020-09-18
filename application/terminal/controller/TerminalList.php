@@ -11,6 +11,7 @@ namespace app\terminal\controller;
 
 use app\terminal\model\Terminal;
 use think\Controller;
+use think\Request;
 
 class TerminalList extends Controller{
     // 返回数据列表
@@ -25,5 +26,24 @@ class TerminalList extends Controller{
         $ter=new Terminal();
         $terDatas=$ter->getWithDataTerminal();
         return json($terDatas);
+    }
+    //根据时间段查询数据库中的数据
+    public function getBytime(){
+        $req=Request::instance();
+        $startime=$req->post('startime');
+        $endtime=$req->post('endtime');
+        $type=$req->post('type');
+        if ($endtime<$startime){
+            return $this->_retemplate('结束时间应该大于开始时间','200','error');
+        }
+        $ter=new Terminal();
+        $res=$ter->getTerDataBytime($startime,$endtime,$type);
+        return json($res);
+
+    }
+    //定义返回的模板
+    private function _retemplate($msg,$code,$status){
+        $res=['msg'=>$msg,'code'=>$code,'status'=>$status];
+        return $res;
     }
 }

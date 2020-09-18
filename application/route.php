@@ -116,5 +116,8 @@ Route::get('api/terminal/list','terminal/TerminalList/terminalList');
 //查询每台设备的数据集
 Route::get('api/getdatalist','terminal/TerminalList/getTerminalData');
 
+//根据时间区间查询数据库
+Route::post('api/terminal/timelist','terminal/TerminalList/getBytime');
+
 
 return [];
