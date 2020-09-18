@@ -110,10 +110,11 @@ Route::domain('m', 'mobile');
 //查询项目简介信息和示意图片
 Route::get('api/baseinfo','baseinfo/Index/get_Base_Info');
 
+//返回所有设备列表
+Route::get('api/terminal/list','terminal/TerminalList/terminalList');
 
-
-
-
+//查询每台设备的数据集
+Route::get('api/getdatalist','terminal/TerminalList/getTerminalData');
 
 
 return [];
