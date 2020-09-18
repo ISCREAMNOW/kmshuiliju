@@ -119,4 +119,6 @@ Route::get('api/getdatalist','terminal/TerminalList/getTerminalData');
 //根据时间区间查询数据库
 Route::post('api/terminal/timelist','terminal/TerminalList/getBytime');
 
+//统计查询
+Route::get('api/countlist','terminal/TerminalList/getcount');
 return [];

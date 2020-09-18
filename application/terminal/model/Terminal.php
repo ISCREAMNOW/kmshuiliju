@@ -16,8 +16,8 @@ class Terminal extends Base
     }
 
    //分页返回所有列表
-   public function getAllTerimalList($page=1,$size=10){
-       return self::paginate($page,$size);
+   public function getAllTerimalList(){
+       return self::paginate(10);
    }
    //建立关联查询
     public function getWithDataTerminal(){
@@ -29,8 +29,12 @@ class Terminal extends Base
     public function getTerDataBytime($statime,$endtime,$type){
         $ter=new Terminal();
         $terDatas=$ter->where('type','=',$type)->with(['terData'=>function($query) use($statime,$endtime){
-            $query->where('add_time','between',[$endtime,$statime]);
-        }])->paginate();
+            $query->where('add_time','between',[$endtime,$statime])->limit(100)->order('add_time asc');
+        }])->paginate(10);
         return $terDatas;
+    }
+    //关联统计
+    public function getCountByWith(){
+
     }
 }

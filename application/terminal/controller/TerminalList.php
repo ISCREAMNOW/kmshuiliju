@@ -10,6 +10,7 @@
 namespace app\terminal\controller;
 
 use app\terminal\model\Terminal;
+use app\terminal\model\TerminalData;
 use think\Controller;
 use think\Request;
 
@@ -39,7 +40,12 @@ class TerminalList extends Controller{
         $ter=new Terminal();
         $res=$ter->getTerDataBytime($startime,$endtime,$type);
         return json($res);
-
+    }
+    //统计查询
+    public function getcount(){
+        $ter=new Terminal();
+        $res=$ter->getCountByWith();
+        return $res;
     }
     //定义返回的模板
     private function _retemplate($msg,$code,$status){
