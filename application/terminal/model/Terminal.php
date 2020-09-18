@@ -29,7 +29,7 @@ class Terminal extends Base
     public function getTerDataBytime($statime,$endtime,$type){
         $ter=new Terminal();
         $terDatas=$ter->where('type','=',$type)->with(['terData'=>function($query) use($statime,$endtime){
-            $query->where('add_time','between',[$statime,$endtime]);
+            $query->where('add_time','between',[$endtime,$statime]);
         }])->paginate();
         return $terDatas;
     }

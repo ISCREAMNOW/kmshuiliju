@@ -30,9 +30,9 @@ class TerminalList extends Controller{
     //根据时间段查询数据库中的数据
     public function getBytime(){
         $req=Request::instance();
-        $startime=$req->post('startime');
-        $endtime=$req->post('endtime');
-        $type=$req->post('type');
+        $startime=$req->param('startime');
+        $endtime=$req->param('endtime');
+        $type=$req->param('type');
         if ($endtime<$startime){
             return $this->_retemplate('结束时间应该大于开始时间','200','error');
         }
