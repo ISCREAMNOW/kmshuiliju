@@ -1,0 +1,77 @@
+<!--<form class="layui-form layui-form-pane form-search" action="{:url('terminal/statis')}" onsubmit="return false" method="get">-->
+
+<!--    <div class="layui-form-item layui-inline">-->
+<!--        <label class="layui-form-label" style="width:auto">开始时间</label>-->
+<!--        <div class="layui-input-inline">-->
+<!--            <input type="datetime-local" name="start_time" value="" placeholder="date()" class="layui-input">-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="layui-form-item layui-inline">-->
+<!--        <label class="layui-form-label" style="width:auto">结束时间</label>-->
+<!--        <div class="layui-input-inline">-->
+<!--            <input type="datetime-local" name="end_time"-->
+<!--                   value="datetimes" class="layui-input">-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="layui-form-item layui-inline">-->
+<!--        <div class="layui-input-inline">-->
+<!--            <button type="submit" class="btn btn-sm btn-white" data-close><i class="fa fa-search" ></i> 搜索</button>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--</form>-->
+
+<form class="layui-form layui-box" style='padding:25px 30px 20px 0' action="__SELF__" data-auto="true" method="post">
+
+    <form onsubmit="return false;" data-auto="" method="POST">
+        <input type="hidden" value="resort" name="action"/>
+        <div class="layui-form">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th class='text-center'>设备编号</th>
+                    <th class='text-center'>时间</th>
+                    <th class='text-center'>COD（mg/l）</th>
+                    <th class='text-center'>总磷（mg/l）</th>
+                    <th class='text-center'>总氮（mg/l）</th>
+                    <th class='text-center'>流量（l/h）</th>
+                    <th class='text-center'>监测点</th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach $list as $key=>$vo}
+                <tr>
+                    <td class='text-center'>{$vo.id}</td>
+                    <td class='text-center'><?php echo date( 'Y/m/d-h:i:sa',$vo['add_time']);?></td>
+
+                    <td class='text-center'>{$vo.cod}</td>
+
+                    <td class='text-center'>{$vo.phosphorus}</td>
+
+                    <td class='text-center'>{$vo.nitrogen}</td>
+
+                    <td class='text-center'>{$vo.flow}</td>
+
+                    <td class='text-center'>
+                        {if $vo.type eq 1}<span>入口</span>
+                        {elseif $vo.type eq 2}<span>出口</span>
+                        {/if}
+                    </td>
+
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
+        {if isset($page)}<p>{$page}</p>{/if}
+    </form>
+
+<!--    <div class="hr-line-dashed"></div>-->
+<!--    <div class="layui-form-item text-center">-->
+<!--        <button class="layui-btn layui-btn-danger" type='button'  data-close>确认</button>-->
+<!--    </div>-->
+
+</form>
+
+<script>window.form.render();</script>

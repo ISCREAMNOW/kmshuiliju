@@ -1,0 +1,252 @@
+{extend name='common/content' /}
+{block name="content"}
+
+<!-- 表单搜索 开始 -->
+<!--<form class="layui-form layui-form-pane form-search" action="__SELF__" onsubmit="return false" method="get">-->
+
+<!--    <div class="layui-form-item layui-inline">-->
+<!--        &lt;!&ndash;<label class="layui-form-label" style="width:auto">文章标题</label>&ndash;&gt;-->
+<!--        <div class="layui-input-inline">-->
+<!--            <input name="t_code" value="{$Think.get.t_code|default=''}" placeholder="根据设备编号搜索" class="layui-input">-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="layui-form-item layui-inline">-->
+<!--        &lt;!&ndash;<label class="layui-form-label" style="width:auto">是否推荐</label>&ndash;&gt;-->
+<!--        <div class="layui-input-inline">-->
+<!--            <select name='analytic_status' class='layui-select'>-->
+<!--                <option value="">根据分析仪状态搜索</option>-->
+<!--                <option value='0'>异常或关闭状态</option>-->
+<!--                <option value='1'>正常</option>-->
+<!--            </select>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="layui-form-item layui-inline">-->
+<!--        &lt;!&ndash;<label class="layui-form-label" style="width:auto">审核状态</label>&ndash;&gt;-->
+<!--        <div class="layui-input-inline">-->
+<!--            <select name='unit_type' class='layui-select'>-->
+<!--                <option  value="">根据分析仪类型搜索</option>-->
+<!--                <option  value='1'>水质分析仪</option>-->
+<!--                <option  value='2'>水位计分析仪</option>-->
+<!--            </select>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="layui-form-item layui-inline">-->
+<!--        &lt;!&ndash;<label class="layui-form-label" style="width:auto">审核状态</label>&ndash;&gt;-->
+<!--        <div class="layui-input-inline">-->
+<!--            <select name='type' class='layui-select'>-->
+<!--                <option  value="">根据监测点搜索</option>-->
+<!--                <option  value='1'>入口</option>-->
+<!--                <option  value='2'>出口</option>-->
+<!--            </select>-->
+<!--        </div>-->
+<!--    </div>-->
+
+
+<!--    <div class="layui-form-item layui-inline">-->
+<!--        <div class="layui-input-inline">-->
+<!--            <button type="submit" class="layui-btn layui-btn-small"><i class="fa fa-search"></i> 搜索</button>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--</form>-->
+
+<!--结束-->
+
+<form onsubmit="return false;" data-auto="" method="POST">
+    <input type="hidden" value="resort" name="action"/>
+    <div class="layui-form">
+        <label style="font-size: 10px;font-weight: bolder;">当天工作的入口设备</label>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class='text-center'>设备编号</th>
+                <th class='text-center'>时间</th>
+                <th class='text-center'>COD(mg/l)</th>
+                <th class='text-center'>总磷(mg/l)</th>
+                <th class='text-center'>总氮(mg/l)</th>
+                <th class='text-center'>流量(l/h)</th>
+                <th class='text-center'>监测点</th>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach $intodata as $key=>$vo}
+            <tr>
+                <td class='text-center'>{$vo['id']}</td>
+
+                <td class='text-center'>
+                    {$vo['add_time']}
+                </td>
+                <td class='text-center'>
+                   {$vo.cod}
+                </td>
+
+                <td class='text-center'>{$vo.phosphorus}</td>
+                <td class='text-center'>{$vo.nitrogen}</td>
+                <td class='text-center'>
+                    {$vo.flow}
+                </td>
+
+                <td class='text-center'>
+                    {if $vo.type eq 1}<span>入口</span>
+                    {elseif $vo.type eq 2}<span>出口</span>
+                    {/if}
+                </td>
+            </tr>
+            {/foreach}
+            </tbody>
+        </table>
+    </div>
+    <div class="layui-form">
+        <label style="font-size: 10px;font-weight: bolder;">当天工作的出口设备</label>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class='text-center'>设备编号</th>
+                <th class='text-center'>时间</th>
+                <th class='text-center'>COD(mg/l)</th>
+                <th class='text-center'>总磷(mg/l)</th>
+                <th class='text-center'>总氮(mg/l)</th>
+                <th class='text-center'>流量(l/h)</th>
+                <th class='text-center'>监测点</th>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach $outdata as $key=>$vo}
+            <tr>
+                <td class='text-center'>{$vo['id']}</td>
+
+                <td class='text-center'>
+                    {$vo['add_time']}
+                </td>
+                <td class='text-center'>
+                    {$vo.cod}
+                </td>
+
+                <td class='text-center'>{$vo.phosphorus}</td>
+                <td class='text-center'>{$vo.nitrogen}</td>
+                <td class='text-center'>
+                    {$vo.flow}
+                </td>
+
+                <td class='text-center'>
+                    {if $vo.type eq 1}<span>入口</span>
+                    {elseif $vo.type eq 2}<span>出口</span>
+                    {/if}
+                </td>
+            </tr>
+            {/foreach}
+            </tbody>
+        </table>
+    </div>
+    <div class="layui-form">
+        <label style="font-size: 10px;font-weight: bolder;">当天入口总量</label>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class='text-center'>设备编号</th>
+                <th class='text-center'>时间</th>
+                <th class='text-center'>当前设备检测到总污染物(mg/l)</th>
+
+                <th class='text-center'>监测点</th>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach $counts as $key=>$vo}
+            <tr>
+                <td class='text-center'>{$vo['id']}</td>
+
+                <td class='text-center'>
+                    {$vo['time']}
+                </td>
+                <td class='text-center'>
+                    {$vo['counts']} mg/l
+                </td>
+                <td class='text-center'>
+                    {if $vo.type eq 1}<span>入口</span>
+                    {elseif $vo.type eq 2}<span>出口</span>
+                    {/if}
+                </td>
+            </tr>
+            {/foreach}
+            </tbody>
+        </table>
+    </div>
+    <div class="layui-form">
+        <label style="font-size: 10px;font-weight: bolder;">当天出口总量</label>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class='text-center'>设备编号</th>
+                <th class='text-center'>时间</th>
+                <th class='text-center'>当前设备检测到总污染物(mg/l)</th>
+
+                <th class='text-center'>监测点</th>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach $outcounts as $key=>$vo}
+            <tr>
+                <td class='text-center'>{$vo['id']}</td>
+
+                <td class='text-center'>
+                    {$vo['time']}
+                </td>
+                <td class='text-center'>
+                    {$vo['counts']} mg/l
+                </td>
+                <td class='text-center'>
+                    {if $vo.type eq 1}<span>入口</span>
+                    {elseif $vo.type eq 2}<span>出口</span>
+                    {/if}
+                </td>
+            </tr>
+            {/foreach}
+            </tbody>
+        </table>
+    </div>
+    <div class="layui-form">
+        <label style="font-size: 10px;font-weight: bolder;">数据一览</label>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class='text-center'>消减量</th>
+
+                <th class='text-center'>去除率</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr>
+                <td class='text-center'>{$pollcount-$cleancount} kg</td>
+
+                <td class='text-center'>
+                    <?php echo round($pollcount/($pollcount-$cleancount)*100,2)?>%
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    {if isset($page)}<p>{$page}</p>{/if}
+</form>
+<script>window.form.render();</script>
+<script>
+    layui.use('form', function(){
+        var $ = layui.jquery, form = layui.form;
+
+        //全选
+        form.on('checkbox(allChoose)', function(data){
+            var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]');
+            child.each(function(index, item){
+                item.checked = data.elem.checked;
+            });
+            form.render('checkbox');
+        });
+
+    });
+</script>
+
+{/block}
